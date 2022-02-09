@@ -16,7 +16,7 @@
     </div>
 
     <div v-show="show" class="__car-keyboard-wrap">
-      <section class="__car-keyboard-close" @click="close">{{ okText }}</section>
+      <section class="__car-keyboard-close" @click="close">{{ closeText }}</section>
       <!-- 省份 -->
       <div v-show="active === 0" class="__car-keyboard-province">
         <section v-for="(row, rowIndex) in provinceList" :key="rowIndex" class="__car-keyboard-row">
@@ -47,7 +47,7 @@
 
 <script>
 export default {
-  name: 'Keyboard',
+  name: 'car-keyboard',
   props: {
     value: {
       type: Array,
@@ -57,7 +57,7 @@ export default {
       type: Boolean,
       required: true,
     },
-    okText: {
+    closeText: {
       type: String,
       default: '关闭',
     },
@@ -114,7 +114,7 @@ export default {
     },
     // 关闭
     close() {
-      this.$emit('on-close')
+      this.$emit('close')
     },
     // 点击键盘区域
     onClickKeyboard(type, rowIndex, cellIndex) {

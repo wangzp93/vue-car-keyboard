@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Keyboard
+    <car-keyboard
       :show="show"
       :value="value"
       @select="onShow"
-      @on-close="onHide"
+      @close="onHide"
     />
     <p @click="onHide">关闭键盘</p>
   </div>
@@ -12,8 +12,6 @@
 
 <script>
 import Keyboard from "./lib";
-
-console.log(Keyboard)
 
 export default {
   name: 'app',
@@ -28,11 +26,9 @@ export default {
   },
   methods: {
     onShow() {
-      console.log('show')
       this.show = true
     },
     onHide() {
-      console.log('hide')
       this.show = false
     }
   }
