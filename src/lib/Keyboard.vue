@@ -93,19 +93,13 @@ export default {
     getValue(index) {
       const { value } = this
       const word = value[index]
+      let res = ''
       if (typeof word === 'string' && word !== '') { // 有值，直接返回
-        return word
-      } else { // 无值，继续判断
-        if (index !== 7) { // 非第8位，直接返回空
-          return ''
-        } else { // 第8位，继续判断
-          if (this.active !== 7) { // 第8位不高亮，返回+
-            return '+'
-          } else { // 否则返回空
-            return ''
-          }
-        }
+        res = word;
+      } else if (index === 7 && this.active !== 7) { // 当前第8位且不高亮，返回+
+        res = '+';
       }
+      return res
     },
     // 点击车牌内容区域
     onClickWord(index) {
@@ -124,15 +118,10 @@ export default {
       // 替换输入值
       if (word !== '删除') { // 正常按键
         value[active] = word
-        if (active < 6) { // 前7位，直接后移
+        const word_7 = value[7]
+        // 光标在前7位 或者 (光标在第7位 并且第8位为空时)，光标后移
+        if (active < 6 || (active === 6 && typeof word_7 === 'string' && word_7 !== '')) {
           this.active++
-        } else if (active === 6) { // 第7位时，判断第8位情况
-          const word_7 = value[7]
-          if (typeof word_7 === 'string' && word_7 !== '') { // 第8位有值，光标后移
-            this.active++
-          } else { // 否则关闭
-            this.close()
-          }
         } else { // 否则关闭
           this.close()
         }
